@@ -26,12 +26,8 @@ jobs:
       - name: Bump version in Cargo.toml and Cargo.lock
         # TODO: This is very wasteful
         run: |
-          echo ${TAG_VERSION}
-          echo ${TAG_VERSION:1}
-          echo "TAG_VERSION=${TAG_VERSION:1}" >> "$GITHUB_ENV"
-          echo ${TAG_VERSION}
           echo "Bumping version to ${{ github.event.release.tag_name }}"
-          sed -i "s/^version = \".*\"/version = \"${TAG_VERSION}\"/" Cargo.toml
+          sed -i "s/^version = \".*\"/version = \"${TAG_VERSION:1}\"/" Cargo.toml
           cargo fetch
           cargo generate-lockfile --offline
 
