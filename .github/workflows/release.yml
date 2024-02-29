@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "TAG_VERSION=${TAG_VERSION:1}" >> "$GITHUB_ENV"
           echo "Bumping version to ${{ github.event.release.tag_name }}"
-          sed -i "s/^version = \".*\"/version = \"${{ github.event.release.tag_name }}\"/" Cargo.toml
+          sed -i "s/^version = \".*\"/version = \"${TAG_VERSION}\"/" Cargo.toml
           cargo fetch
           cargo generate-lockfile --offline
 
