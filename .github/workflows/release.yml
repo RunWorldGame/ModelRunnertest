@@ -5,6 +5,9 @@ on:
     types:
       - created
 
+env:
+  TAG_VERSION: ${{ github.event.release.tag_name }}
+
 jobs:
   bump-version:
     name: Bump version
@@ -23,9 +26,9 @@ jobs:
       - name: Bump version in Cargo.toml and Cargo.lock
         # TODO: This is very wasteful
         run: |
-          TAG_VERSION=v1.0.0
-          echo "Bumping version to ${TAG_VERSION:1}"
-          sed -i "s/^version = \".*\"/version = \"${TAG_VERSION:1}\"/" Cargo.toml
+          echo "TAG_VERSION=${TAG_VERSION:1}" >> "$GITHUB_ENV"
+          echo "Bumping version to ${{ github.event.release.tag_name }}"
+          sed -i "s/^version = \".*\"/version = \"${{ github.event.release.tag_name }}\"/" Cargo.toml
           cargo fetch
           cargo generate-lockfile --offline
 
