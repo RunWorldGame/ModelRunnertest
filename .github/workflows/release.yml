@@ -31,8 +31,13 @@ jobs:
           commit_message: "Release $TAG_VERSION"
           file_pattern: "Cargo.toml Cargo.lock"
 
-  release:
-    name: Release assets-${{ matrix.target }}
+      - name: Create release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+
+  add-release-assets:
+    name: Add Release assets ${{ matrix.target }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -63,7 +68,7 @@ jobs:
           ARCHIVE_TYPES: ${{ matrix.archive }}
 
   image:
-    name: Publish docker image${{ matrix.suffix }}
+    name: Publish docker image ${{ matrix.suffix }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
