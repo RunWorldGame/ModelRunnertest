@@ -1,12 +1,12 @@
 name: Upload assets to GitHub Release and publish Docker image
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
+  release:
+    types:
+      - created
 
 env:
-  TAG_VERSION: ${{ github.ref_name }}
+  TAG_VERSION: ${{ github.event.release.tag_name }}
 
 jobs:
   bump-version:
@@ -30,11 +30,6 @@ jobs:
           branch: master
           commit_message: "Release ${{ env.TAG_VERSION }}"
           file_pattern: "Cargo.toml Cargo.lock"
-
-      - name: Create release
-        uses: softprops/action-gh-release@v1
-        with:
-          generate_release_notes: true
 
   add-release-assets:
     name: Add Release assets ${{ matrix.target }}
