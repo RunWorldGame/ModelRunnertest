@@ -3,7 +3,7 @@ name: Upload assets to GitHub Release and publish Docker image
 on:
   push:
     tags:
-      - "v*"
+      - "v*.*.*"
 
 env:
   TAG_VERSION: ${{ github.ref }}
