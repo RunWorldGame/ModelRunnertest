@@ -1220,7 +1220,7 @@ dependencies = [
 
 [[package]]
 name = "model_runner"
-version = "0.1.9"
+version = "0.1.11"
 dependencies = [
  "anyhow",
  "axum",
