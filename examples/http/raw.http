@@ -15,7 +15,7 @@ content-type: application/json
   }
 }
 
-### Mistral 7B
+### Mistral 7B asda
 POST http://localhost:25566/text/raw
 content-type: application/json
 
