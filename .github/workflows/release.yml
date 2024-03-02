@@ -6,7 +6,7 @@ on:
       - "v*.*.*"
 
 env:
-  TAG_VERSION: ${{ github.ref }}
+  TAG_VERSION: ${{ github.ref_name }}
 
 jobs:
   bump-version:
