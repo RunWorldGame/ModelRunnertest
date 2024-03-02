@@ -2,35 +2,12 @@ name: Upload assets to GitHub Release and publish Docker image
 
 on:
   release:
-    types:
-      - created
+    types: [published]
 
 env:
   TAG_VERSION: ${{ github.event.release.tag_name }}
 
 jobs:
-  bump-version:
-    name: Bump version
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Bump version in Cargo.toml and Cargo.lock
-        run: |
-          echo "Bumping version to ${TAG_VERSION}"
-          sed -i "s/^version = \".*\"/version = \"${TAG_VERSION:1}\"/" Cargo.toml
-          awk -v tag="${TAG_VERSION:1}" '/name = "model_runner"/{getline; sub(/version = ".+"/, "name = \"model_runner\"\nversion = \"" tag "\""); print; next}1' Cargo.lock > temp && mv temp Cargo.lock
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          branch: master
-          commit_message: "Release ${{ env.TAG_VERSION }}"
-          file_pattern: "Cargo.toml Cargo.lock"
-
   add-release-assets:
     name: Add Release assets ${{ matrix.target }}
     runs-on: ubuntu-latest
