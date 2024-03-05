@@ -7,6 +7,8 @@ services:
     image: ghcr.io/frkri/modelrunner:latest
     container_name: model_runner
     build:
+
+    
       context: .
       dockerfile: Dockerfile
     ports:
