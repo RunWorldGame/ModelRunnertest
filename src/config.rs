@@ -15,7 +15,7 @@ pub struct Config {
     /// The TLS configuration
     #[serde(default)]
     #[command(flatten)]
-    pub tls: <TlsConfig as ClapSerde>::Opt,
+    pub tls: <TlsConfig as Cla
 }
 
 #[derive(ClapSerde, Deserialize, Debug)]
