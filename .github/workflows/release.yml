@@ -31,7 +31,7 @@ jobs:
           file_pattern: "Cargo.toml Cargo.lock"
 
   add-release-assets:
-    name: Add Release assets ${{ matrix.target }}
+    name: Release assets ${{ matrix.target }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -46,6 +46,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
 
       - name: Bump version in Cargo.toml and Cargo.lock
         run: |
