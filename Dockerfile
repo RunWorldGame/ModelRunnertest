@@ -8,8 +8,8 @@ COPY . /ModelRunner
 
 ENV RUSTFLAGS=${rust_flags}
 ENV DATABASE_URL="sqlite://model_runner_check.db"
-RUN cargo install cargo install sqlx-cli --no-default-features --features sqlite \
-    && sqlx db setup
+RUN cargo install sqlx-cli --no-default-features --features sqlite &&\
+    cargo sqlx db setup
 RUN cargo build --release --bin model_runner
 
 FROM gcr.io/distroless/cc-debian12 as runtime
