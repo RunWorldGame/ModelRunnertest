@@ -32,7 +32,7 @@ use log::{error, info};
 use sqlx::sqlite::SqliteConnectOptions;
 use sqlx::SqlitePool;
 
-#[cfg(not(target_env = "msvc"))]
+#[cfg(unix)]
 use tikv_jemallocator::Jemalloc;
 
 use crate::api::api_client::{
@@ -68,7 +68,7 @@ pub mod error;
 mod extractors;
 mod inference;
 
-#[cfg(not(target_env = "msvc"))]
+#[cfg(unix)]
 #[global_allocator]
 static GLOBAL: Jemalloc = Jemalloc;
 
